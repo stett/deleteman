@@ -11,8 +11,7 @@
            release\deleteman-<version>-win-x64.zip          (deleteman.exe at the top level of the zip)
            release\deleteman-<version>-win-x64.zip.sha256   (sha256sum format)
 
-       Zips and checksums of other versions already in release\ are removed, so a release branch carries
-       exactly one build.
+       Zips and checksums of other versions already in release\ are removed.
 
     2. Installer (skipped with -NoInstaller). `dotnet publish ... -p:PublishProfile=fd-win-x64` (Native AOT,
        framework-dependent on the installed Windows App Runtime), stages the payload in
@@ -22,12 +21,12 @@
 
            artifacts\Delete Man_<version>_x64-setup.exe
 
-       The installer is not committed anywhere; publish it however you share files.
+       The installer is attached to the GitHub release next to the zip.
 
     Both published deleteman.exe files must report a ProductVersion starting with the version.
 
-    The release\ folder is committed only on release branches (release/<major>.<minor>); main never carries
-    binaries. See README.md, section "Releases".
+    Neither folder is committed: the zip, its checksum and the installer are attached to a GitHub release
+    tagged v<version>. See docs\development.md, section "Releases".
 
     Must run from PowerShell, not Git Bash (Native AOT linking needs environment variables that Git Bash drops;
     the script repairs the two known cases). Works on Windows PowerShell 5.1 and PowerShell 7+.
@@ -160,7 +159,7 @@ try {
     $zip = Join-Path $outDir $name
     $sumOut = "$zip.sha256"
 
-    # A release branch carries only the current build (this also drops the Rust-era deleteman-<ver>.exe files).
+    # Keep only the current build in release\ (this also drops the Rust-era deleteman-<ver>.exe files).
     foreach ($f in @(Get-ChildItem $outDir -File -Filter "deleteman-*")) {
         if ($f.Name -eq $name -or $f.Name -eq "$name.sha256") { continue }
         if ($f.Name -notmatch '\.(zip|exe)(\.sha256)?$') { continue }
@@ -246,11 +245,13 @@ try {
         Write-Host "    SHA-256 $setupHash"
     }
     Write-Host ""
-    $minor = $version -replace '\.\d+$', ''
-    Write-Host "Next, on branch release/${minor}:"
-    Write-Host "  git add release"
-    Write-Host "  git commit -m `"Release ${version}: portable deleteman-$version-win-x64.zip`""
-    Write-Host "  git push -u origin release/$minor"
+    $files = @("release\$name", "release\$name.sha256")
+    if ($setup) { $files += "artifacts\Delete Man_${version}_x64-setup.exe" }
+    $quoted = ($files | ForEach-Object { "`"$_`"" }) -join " "
+    Write-Host "Next, from a clean and pushed main:"
+    Write-Host "  git tag -a v$version -m `"Delete Man $version`""
+    Write-Host "  git push origin v$version"
+    Write-Host "  gh release create v$version $quoted --title `"Delete Man $version`" --notes-file notes.md --verify-tag --latest"
     exit 0
 }
 catch {
