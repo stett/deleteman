@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DeleteMan.App/DeleteMan.App.csproj" />
+    <Project Path="src/DeleteMan.Bench/DeleteMan.Bench.csproj" />
+    <Project Path="src/DeleteMan.Engine/DeleteMan.Engine.csproj" />
+    <Project Path="src/DeleteMan.ViewModels/DeleteMan.ViewModels.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DeleteMan.Engine.Tests/DeleteMan.Engine.Tests.csproj" />
+    <Project Path="tests/DeleteMan.ViewModels.Tests/DeleteMan.ViewModels.Tests.csproj" />
+    <Project Path="tests/DeleteMan.UITests/DeleteMan.UITests.csproj" />
+  </Folder>
+</Solution>

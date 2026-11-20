@@ -1,0 +1,14 @@
+# Line endings are normalised to LF in the repository; working trees get the platform default
+# (CRLF on Windows, matching .editorconfig).
+* text=auto
+
+# sha256sum files are read by Unix tools; keep them LF everywhere.
+*.sha256 text eol=lf
+
+# Binary files
+*.png binary
+*.ico binary
+*.zip binary
+*.exe binary
+*.dll binary
+*.pdb binary

@@ -1,0 +1,31 @@
+<Project>
+
+  <!--
+    Shared build settings for every project in the solution.
+    The version below is the single source of truth for the product version: the UI badge, the executables'
+    file properties, the installer file name and the portable zip all read it. Change it with
+    scripts\bump-version.ps1 <x.y.z> (or edit the one line).
+  -->
+  <PropertyGroup>
+    <Version>0.2.0</Version>
+    <Product>Delete Man</Product>
+    <Authors>Steven Barnett</Authors>
+    <Company>Steven Barnett</Company>
+    <Copyright>Copyright © Steven Barnett</Copyright>
+    <Description>Disk usage explorer and fast directory deleter</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!-- Everything targets 64-bit Windows; a single platform keeps solution/project platform mapping trivial. -->
+    <Platforms>x64</Platforms>
+    <Platform>x64</Platform>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+</Project>

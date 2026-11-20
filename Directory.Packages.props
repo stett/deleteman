@@ -1,0 +1,31 @@
+<Project>
+
+  <!-- Central package management: every project references packages without a version; versions live here. -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Windows App SDK / WinUI 3. The split packages rather than the Microsoft.WindowsAppSDK metapackage: the
+         metapackage also ships Windows ML (onnxruntime, DirectML) and WebView2, 40+ MB of DLLs this app never loads. -->
+    <PackageVersion Include="Microsoft.WindowsAppSDK.Foundation" Version="2.6.5" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK.WinUI" Version="2.6.5" />
+    <!-- Required by framework-dependent builds when the split packages are used instead of the metapackage. -->
+    <PackageVersion Include="Microsoft.WindowsAppSDK.Runtime" Version="2.6.5" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
+    <!-- Native AOT for WinUI 3 needs CsWinRT 2.1.1 or later; pin the current release explicitly. -->
+    <PackageVersion Include="Microsoft.Windows.CsWinRT" Version="2.3.1" />
+
+    <!-- Win32 interop source generator (engine) -->
+    <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.3.367" />
+
+    <!-- Tests (xunit.v3 on Microsoft.Testing.Platform; no VSTest adapter needed) -->
+    <PackageVersion Include="xunit.v3" Version="4.0.2" />
+
+    <!-- UI automation smoke tests -->
+    <PackageVersion Include="FlaUI.Core" Version="5.0.0" />
+    <PackageVersion Include="FlaUI.UIA3" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

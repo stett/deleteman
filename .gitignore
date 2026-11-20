@@ -1,0 +1,33 @@
+# .NET build output and tooling
+bin/
+obj/
+.vs/
+artifacts/
+TestResults/
+*.user
+*.binlog
+# Scratch trees from scripts\make-tree.ps1 / scripts\bench.ps1
+testdata/
+# release/ is deliberately NOT ignored: release branches commit the portable zip and its .sha256 there.
+
+# Logs
+logs
+*.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Claude Code session state
+.claude/
+
+# Lore, the revision control this project used before git (metadata left on disk; safe to delete)
+.lore/
+.loreignore

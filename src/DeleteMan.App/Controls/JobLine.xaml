@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One line of the jobs banner: status glyph | path (mono, ≤45 % width) | "resumed" pill | status text |
+     Details | Cancel or dismiss. -->
+<UserControl
+    x:Class="DeleteMan.App.Controls.JobLine"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DeleteMan.App.Controls"
+    IsTabStop="False">
+
+  <Grid x:Name="RootGrid" MinHeight="28" ColumnSpacing="10" SizeChanged="OnSizeChanged">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="16" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Three glyph hosts so each colour is a {ThemeResource} and follows the theme without code lookups. -->
+    <Grid Grid.Column="0" Width="16" Height="16" VerticalAlignment="Center">
+      <FontIcon x:Name="NeutralIcon" FontSize="14" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="Collapsed" />
+      <FontIcon x:Name="SuccessIcon" FontSize="14" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                Foreground="{ThemeResource SystemFillColorSuccessBrush}" Visibility="Collapsed" />
+      <FontIcon x:Name="CriticalIcon" FontSize="14" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}" Visibility="Collapsed" />
+      <ProgressRing x:Name="RunningRing" Width="14" Height="14" MinWidth="0" MinHeight="0"
+                    IsActive="False" Visibility="Collapsed" />
+    </Grid>
+
+    <TextBlock x:Name="PathText" Grid.Column="1" VerticalAlignment="Center"
+               Style="{StaticResource MonoTextStyle}"
+               Text="{x:Bind Path, Mode=OneWay}"
+               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+
+    <Border x:Name="ResumedPill" Grid.Column="2" VerticalAlignment="Center"
+            Padding="6,0,6,1" CornerRadius="3"
+            Background="{ThemeResource ControlFillColorSecondaryBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+            ToolTipService.ToolTip="Resumed after Delete Man restarted"
+            Visibility="Collapsed">
+      <TextBlock Text="resumed" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+    </Border>
+
+    <TextBlock x:Name="StatusTextBlock" Grid.Column="3" VerticalAlignment="Center"
+               Text="{x:Bind StatusText, Mode=OneWay}"
+               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+               Typography.NumeralAlignment="Tabular" />
+
+    <Button x:Name="DetailsButton" Grid.Column="4"
+            Style="{StaticResource SmallButtonStyle}"
+            Content="Details"
+            ToolTipService.ToolTip="Show the items that could not be deleted"
+            AutomationProperties.Name="Details"
+            Visibility="Collapsed"
+            Click="OnDetailsClick" />
+
+    <Grid Grid.Column="5" VerticalAlignment="Center">
+      <Button x:Name="CancelButton"
+              Style="{StaticResource SmallDangerButtonStyle}"
+              Content="Cancel"
+              ToolTipService.ToolTip="Stop this deletion"
+              AutomationProperties.Name="Cancel deletion"
+              Visibility="Collapsed"
+              Click="OnCancelClick" />
+      <local:IconButton x:Name="DismissButton"
+                        Style="{StaticResource MiniIconButtonStyle}"
+                        Glyph="&#xE711;" GlyphSize="10"
+                        ToolTipService.ToolTip="Dismiss"
+                        AutomationProperties.Name="Dismiss"
+                        Click="OnDismissClick" />
+    </Grid>
+  </Grid>
+</UserControl>

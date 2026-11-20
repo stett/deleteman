@@ -1,0 +1,51 @@
+// Win32 / NT API surface used by the engine. One name per line; CsWin32 generates the bindings at build time.
+// Keep this list minimal: everything here ends up in the AOT image.
+
+// Files and directories
+CreateFileW
+CloseHandle
+GetFileAttributesW
+FindFirstFileExW
+FindNextFileW
+FindClose
+GetFileInformationByHandleEx
+WIN32_FIND_DATAW
+FILE_FULL_DIR_INFO
+FILE_INFO_BY_HANDLE_CLASS
+FINDEX_INFO_LEVELS
+FINDEX_SEARCH_OPS
+FIND_FIRST_EX_FLAGS
+FILE_FLAGS_AND_ATTRIBUTES
+FILE_SHARE_MODE
+FILE_ACCESS_RIGHTS
+FILE_CREATION_DISPOSITION
+INVALID_HANDLE_VALUE
+INVALID_FILE_ATTRIBUTES
+
+// NT native API (relative opens, POSIX delete semantics)
+NtOpenFile
+NtSetInformationFile
+RtlNtStatusToDosError
+OBJECT_ATTRIBUTES
+UNICODE_STRING
+IO_STATUS_BLOCK
+FILE_INFORMATION_CLASS
+FILE_BASIC_INFORMATION
+FILE_DISPOSITION_INFORMATION
+FILE_DISPOSITION_INFORMATION_EX
+FILE_DISPOSITION_INFORMATION_EX_FLAGS
+NTCREATEFILE_CREATE_OPTIONS
+OBJECT_ATTRIBUTE_FLAGS
+NTSTATUS
+STATUS_INVALID_PARAMETER
+STATUS_NOT_SUPPORTED
+STATUS_INVALID_INFO_CLASS
+
+// Win32 error codes used for retry / already-gone decisions (ERROR_* members of this enum)
+WIN32_ERROR
+
+// Volumes
+GetLogicalDrives
+GetDriveTypeW
+GetDiskFreeSpaceExW
+GetVolumeInformationW

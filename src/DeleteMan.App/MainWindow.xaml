@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The main window: drive cards in a scroll viewer (rows are rendered from code by RowsPresenter), the jobs banner
+  fixed at the bottom, and the version badge in the bottom-right corner.
+-->
+<Window
+    x:Class="DeleteMan.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Delete Man">
+
+  <Window.SystemBackdrop>
+    <MicaBackdrop />
+  </Window.SystemBackdrop>
+
+  <Grid x:Name="Root">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TitleBar x:Name="AppTitleBar" Title="Delete Man">
+      <TitleBar.IconSource>
+        <ImageIconSource ImageSource="ms-appx:///Assets/icon.png" />
+      </TitleBar.IconSource>
+    </TitleBar>
+
+    <Grid Grid.Row="1">
+      <ScrollViewer x:Name="RowsScroller" VerticalScrollBarVisibility="Auto" AutomationProperties.AutomationId="rows">
+        <!-- Bottom padding keeps the last card clear of the version badge, as in the web UI. -->
+        <StackPanel x:Name="Cards" Spacing="12" Padding="12,4,12,56" />
+      </ScrollViewer>
+      <TextBlock x:Name="VersionBadge"
+                 HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,6"
+                 FontSize="11" IsHitTestVisible="False"
+                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                 AutomationProperties.AutomationId="version" />
+    </Grid>
+
+    <!-- Jobs banner: anchored to the bottom, hidden while there are no jobs. -->
+    <Border x:Name="JobsBanner" Grid.Row="2"
+            Visibility="Collapsed"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+            BorderThickness="0,1,0,0"
+            Padding="16,8"
+            AutomationProperties.Name="Deletions"
+            AutomationProperties.AutomationId="jobs">
+      <ScrollViewer MaxHeight="280" VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="JobLines" Spacing="2" />
+      </ScrollViewer>
+    </Border>
+  </Grid>
+</Window>

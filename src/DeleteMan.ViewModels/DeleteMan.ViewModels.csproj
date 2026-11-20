@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    UI state and pure view builders (the port of the old model.ts / format.ts). Deliberately free of any
+    Microsoft.UI.Xaml reference so it can be unit-tested in a plain test host.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>DeleteMan.ViewModels</RootNamespace>
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <WarningsAsErrors>$(WarningsAsErrors);IL2026;IL3050;IL2075</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DeleteMan.ViewModels.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeleteMan.Engine\DeleteMan.Engine.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  One row of the explorer: label | bar | size | controls (176 | * | 104 | 140, 12 px gaps), with a 3 px left
+  edge in the colour of the segment that opened it. The bar cell hosts whatever the consumer puts in BarContent
+  (a ProportionalPanel of SegmentButtons, a placeholder text, a DeletingBar).
+-->
+<UserControl
+    x:Class="DeleteMan.App.Controls.RowControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DeleteMan.App.Controls">
+
+  <Border x:Name="EdgeBorder" BorderThickness="3,0,0,0" CornerRadius="2" MinHeight="32">
+  <Grid x:Name="RootGrid"
+        Padding="8,0,0,0"
+        ColumnSpacing="12">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="176" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="104" />
+      <ColumnDefinition Width="140" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Label: bold name over a muted sub line, both truncated. -->
+    <StackPanel x:Name="LabelCell" Grid.Column="0" VerticalAlignment="Center">
+      <TextBlock x:Name="NameText"
+                 Text="{x:Bind Label, Mode=OneWay}"
+                 FontWeight="SemiBold"
+                 TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+      <TextBlock x:Name="SubText"
+                 Text="{x:Bind SubLabel, Mode=OneWay}"
+                 FontSize="11"
+                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                 TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+    </StackPanel>
+
+    <!-- Bar slot: 26 px track with 3 px corners; the content is clipped to it. -->
+    <Border x:Name="BarBorder"
+            Grid.Column="1"
+            Height="26"
+            VerticalAlignment="Center"
+            CornerRadius="3"
+            Background="{ThemeResource BarTrackBrush}">
+      <ContentPresenter x:Name="BarPresenter"
+                        Content="{x:Bind BarContent, Mode=OneWay}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch" />
+    </Border>
+
+    <TextBlock x:Name="SizeTextBlock"
+               Grid.Column="2"
+               Text="{x:Bind SizeText, Mode=OneWay}"
+               HorizontalAlignment="Right" VerticalAlignment="Center"
+               TextWrapping="NoWrap"
+               Typography.NumeralAlignment="Tabular" />
+
+    <!-- Two joined pairs, right-aligned, 28 px per button: [recycle | delete] 8 px [pin | close]. Each pair shares
+         its middle border (left half rounded on the left, right half on the right, the right half without a left
+         border), so the destructive actions read as one unit and the expand/contract pair as another. Pin
+         ("expand all", a double chevron down) and close ("contract this", a chevron up) are on every row, drive
+         rows included, and are disabled where they do not apply (RowControl.UpdateControls). -->
+    <Grid x:Name="ControlsCell" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="28" />
+        <ColumnDefinition Width="28" />
+        <ColumnDefinition Width="8" />
+        <ColumnDefinition Width="28" />
+        <ColumnDefinition Width="28" />
+      </Grid.ColumnDefinitions>
+      <local:IconButton x:Name="RecycleButton" Grid.Column="0"
+                        CornerRadius="5,0,0,5"
+                        Glyph="&#xE74D;"
+                        HoverBackground="{ThemeResource RecycleBrush}"
+                        ToolTipService.ToolTip="Move to Recycle Bin…"
+                        AutomationProperties.Name="Move to Recycle Bin"
+                        AutomationProperties.AutomationId="ctl:recycle"
+                        Visibility="Collapsed"
+                        Click="OnRecycleClick" />
+      <local:IconButton x:Name="DeleteButton" Grid.Column="1"
+                        CornerRadius="0,5,5,0" BorderThickness="0,1,1,1"
+                        Glyph="&#xECAD;"
+                        HoverBackground="{ThemeResource DangerBrush}"
+                        HoverForeground="{ThemeResource DangerForegroundBrush}"
+                        ToolTipService.ToolTip="Delete permanently…"
+                        AutomationProperties.Name="Delete permanently"
+                        AutomationProperties.AutomationId="ctl:delete"
+                        Visibility="Collapsed"
+                        Click="OnDeleteClick" />
+      <!-- Style, tooltip and automation name follow the Pin state (RowControl.UpdatePin); the corner radius and
+           border set here outlive the style swaps, being local values. -->
+      <local:IconButton x:Name="PinButton" Grid.Column="3"
+                        CornerRadius="5,0,0,5"
+                        Shape="DoubleChevronDown"
+                        AutomationProperties.AutomationId="ctl:pin"
+                        Click="OnPinClick" />
+      <local:IconButton x:Name="CloseButton" Grid.Column="4"
+                        CornerRadius="0,5,5,0" BorderThickness="0,1,1,1"
+                        Shape="ChevronUp"
+                        ToolTipService.ToolTip="Close this row"
+                        AutomationProperties.Name="Close"
+                        AutomationProperties.AutomationId="ctl:close"
+                        Click="OnCloseClick" />
+      <Button x:Name="CancelButton" Grid.Column="1" Grid.ColumnSpan="4"
+              Style="{StaticResource SmallDangerButtonStyle}"
+              HorizontalAlignment="Stretch"
+              Content="Cancel"
+              ToolTipService.ToolTip="Stop this deletion"
+              AutomationProperties.Name="Cancel deletion"
+              AutomationProperties.AutomationId="ctl:cancel"
+              Visibility="Collapsed"
+              Click="OnCancelClick" />
+    </Grid>
+  </Grid>
+  </Border>
+</UserControl>

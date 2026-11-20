@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The WinUI 3 desktop app. Unpackaged (no MSIX identity), published with Native AOT.
+    Two publish profiles live in Properties\PublishProfiles:
+      fd-win-x64  framework-dependent on the Windows App Runtime (installer payload)
+      sc-win-x64  self-contained, runtime files beside the exe (portable zip)
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <RootNamespace>DeleteMan.App</RootNamespace>
+    <!-- The executable is deleteman.exe: the installer adds its folder to PATH so `deleteman` runs from any shell. -->
+    <AssemblyName>deleteman</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <UseRidGraph>false</UseRidGraph>
+
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- Default (build / F5): framework-dependent on the installed Windows App Runtime. Publish profiles override. -->
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+
+    <!-- Native AOT -->
+    <SelfContained>true</SelfContained>
+    <PublishAot>true</PublishAot>
+    <IsAotCompatible>true</IsAotCompatible>
+    <PublishSingleFile>false</PublishSingleFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
+    <WindowsSdkPackageVersion>10.0.26100.87</WindowsSdkPackageVersion>
+    <WarningsAsErrors>$(WarningsAsErrors);IL2026;IL3050;IL2075</WarningsAsErrors>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Program.cs owns Main: single-instance redirection must run before XAML starts. -->
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK.Foundation" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.WinUI" />
+    <PackageReference Include="Microsoft.WindowsAppSDK.Runtime" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeleteMan.Engine\DeleteMan.Engine.csproj" />
+    <ProjectReference Include="..\DeleteMan.ViewModels\DeleteMan.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Loose files beside the exe: the title-bar icon (ms-appx:///Assets/icon.png) and the AppWindow icon.
+         Without CopyToOutputDirectory `dotnet publish` leaves them out even though `dotnet build` copies them. -->
+    <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+</Project>

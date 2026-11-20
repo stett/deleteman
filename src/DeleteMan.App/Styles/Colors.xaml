@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  App-specific colours and brushes for the disk-usage bars. Values come from the web UI's styles.css so the
+  information design stays the same; window chrome (text, cards, dividers) uses WinUI theme resources instead.
+  Controls that build brushes in code (hatching, structural segment fills) read these keys through
+  ThemeLookup, which picks the theme dictionary matching the element's ActualTheme.
+
+  Every value here is a SolidColorBrush, including the keys that end in "Color" (code reads brush.Color). A
+  <Color> resource comes back from the dictionary as a boxed struct, and unboxing that needs a runtime type lookup
+  that fails under Native AOT; brushes are classes and cast safely (see AppResources.cs).
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.ThemeDictionaries>
+
+    <!-- ===== Dark (Default) ===== -->
+    <ResourceDictionary x:Key="Default">
+      <!-- Segment text is white with a shadow over every segment colour. -->
+      <SolidColorBrush x:Key="SegmentTextBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="SegmentTextShadowBrush" Color="#B3000000" />
+      <SolidColorBrush x:Key="HatchedTextBrush" Color="#B8BEC9" />
+      <!-- Pointer-over wash and the progress overlay sit on top of any segment colour. -->
+      <SolidColorBrush x:Key="SegmentHoverBrush" Color="#1FFFFFFF" />
+      <SolidColorBrush x:Key="SegmentPressedBrush" Color="#33000000" />
+      <SolidColorBrush x:Key="SegmentProgressBrush" Color="#59FFFFFF" />
+      <!-- 1 px darker edge on the right of each segment so neighbours of similar colour stay distinct. -->
+      <SolidColorBrush x:Key="SegmentSeparatorBrush" Color="#73000000" />
+
+      <SolidColorBrush x:Key="HatchStripeAColor" Color="#3A3F48" />
+      <SolidColorBrush x:Key="HatchStripeBColor" Color="#2C3037" />
+      <SolidColorBrush x:Key="ErrorStripeAColor" Color="#7F1D1D" />
+      <SolidColorBrush x:Key="ErrorStripeBColor" Color="#561212" />
+      <SolidColorBrush x:Key="IndeterminateStripeAColor" Color="#47FFFFFF" />
+      <SolidColorBrush x:Key="IndeterminateStripeBColor" Color="#14FFFFFF" />
+      <SolidColorBrush x:Key="ProgressStripeAColor" Color="#B91C1C" />
+      <SolidColorBrush x:Key="ProgressStripeBColor" Color="#7F1D1D" />
+
+      <SolidColorBrush x:Key="StructuralFilesColor" Color="#64748B" />
+      <SolidColorBrush x:Key="StructuralOtherColor" Color="#4B5563" />
+      <SolidColorBrush x:Key="StructuralSmallColor" Color="#52525B" />
+
+      <SolidColorBrush x:Key="DangerBrush" Color="#DC2626" />
+      <SolidColorBrush x:Key="DangerHoverBrush" Color="#EF4444" />
+      <SolidColorBrush x:Key="DangerPressedBrush" Color="#B91C1C" />
+      <SolidColorBrush x:Key="DangerForegroundBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="RecycleBrush" Color="#EAB308" />
+
+      <SolidColorBrush x:Key="ProgressTrackBrush" Color="#2A1416" />
+      <SolidColorBrush x:Key="ProgressFillBrush" Color="#DC2626" />
+      <SolidColorBrush x:Key="ProgressTextBrush" Color="#E6E8EB" />
+
+      <SolidColorBrush x:Key="BarTrackBrush" Color="#23262D" />
+      <SolidColorBrush x:Key="DriveTrackBrush" Color="#2A2E36" />
+      <!-- Drive used-space fill: the system accent at its base shade, so white segment text stays legible. -->
+      <SolidColorBrush x:Key="DriveFillBrush" Color="{ThemeResource SystemAccentColor}" />
+    </ResourceDictionary>
+
+    <!-- ===== Light ===== -->
+    <ResourceDictionary x:Key="Light">
+      <SolidColorBrush x:Key="SegmentTextBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="SegmentTextShadowBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="HatchedTextBrush" Color="#334155" />
+      <SolidColorBrush x:Key="SegmentHoverBrush" Color="#1FFFFFFF" />
+      <SolidColorBrush x:Key="SegmentPressedBrush" Color="#26000000" />
+      <SolidColorBrush x:Key="SegmentProgressBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="SegmentSeparatorBrush" Color="#2E000000" />
+
+      <SolidColorBrush x:Key="HatchStripeAColor" Color="#CBD5E1" />
+      <SolidColorBrush x:Key="HatchStripeBColor" Color="#E2E8F0" />
+      <SolidColorBrush x:Key="ErrorStripeAColor" Color="#DC2626" />
+      <SolidColorBrush x:Key="ErrorStripeBColor" Color="#991B1B" />
+      <SolidColorBrush x:Key="IndeterminateStripeAColor" Color="#47FFFFFF" />
+      <SolidColorBrush x:Key="IndeterminateStripeBColor" Color="#14FFFFFF" />
+      <SolidColorBrush x:Key="ProgressStripeAColor" Color="#B91C1C" />
+      <SolidColorBrush x:Key="ProgressStripeBColor" Color="#7F1D1D" />
+
+      <!-- The dark greys of the dark theme look muddy on a light bar: recolour to slate that still carries white text. -->
+      <SolidColorBrush x:Key="StructuralFilesColor" Color="#64748B" />
+      <SolidColorBrush x:Key="StructuralOtherColor" Color="#475569" />
+      <SolidColorBrush x:Key="StructuralSmallColor" Color="#71717A" />
+
+      <SolidColorBrush x:Key="DangerBrush" Color="#DC2626" />
+      <SolidColorBrush x:Key="DangerHoverBrush" Color="#EF4444" />
+      <SolidColorBrush x:Key="DangerPressedBrush" Color="#B91C1C" />
+      <SolidColorBrush x:Key="DangerForegroundBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="RecycleBrush" Color="#CA8A04" />
+
+      <!-- A saturated red fill so the white progress text reads over it. -->
+      <SolidColorBrush x:Key="ProgressTrackBrush" Color="#F87171" />
+      <SolidColorBrush x:Key="ProgressFillBrush" Color="#B91C1C" />
+      <SolidColorBrush x:Key="ProgressTextBrush" Color="#FFFFFF" />
+
+      <SolidColorBrush x:Key="BarTrackBrush" Color="#E2E8F0" />
+      <SolidColorBrush x:Key="DriveTrackBrush" Color="#64748B" />
+      <SolidColorBrush x:Key="DriveFillBrush" Color="{ThemeResource SystemAccentColorDark1}" />
+    </ResourceDictionary>
+
+    <!-- ===== High contrast: system colours for chrome; segments keep distinct but bold fills. ===== -->
+    <ResourceDictionary x:Key="HighContrast">
+      <SolidColorBrush x:Key="SegmentTextBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="SegmentTextShadowBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="HatchedTextBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="SegmentHoverBrush" Color="{ThemeResource SystemColorHighlightColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="SegmentPressedBrush" Color="{ThemeResource SystemColorHighlightColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="SegmentProgressBrush" Color="#80FFFFFF" />
+      <SolidColorBrush x:Key="SegmentSeparatorBrush" Color="{ThemeResource SystemColorWindowColor}" />
+
+      <SolidColorBrush x:Key="HatchStripeAColor" Color="#404040" />
+      <SolidColorBrush x:Key="HatchStripeBColor" Color="#000000" />
+      <SolidColorBrush x:Key="ErrorStripeAColor" Color="#C00000" />
+      <SolidColorBrush x:Key="ErrorStripeBColor" Color="#000000" />
+      <SolidColorBrush x:Key="IndeterminateStripeAColor" Color="#80FFFFFF" />
+      <SolidColorBrush x:Key="IndeterminateStripeBColor" Color="#00FFFFFF" />
+      <SolidColorBrush x:Key="ProgressStripeAColor" Color="#C00000" />
+      <SolidColorBrush x:Key="ProgressStripeBColor" Color="#000000" />
+
+      <SolidColorBrush x:Key="StructuralFilesColor" Color="#404040" />
+      <SolidColorBrush x:Key="StructuralOtherColor" Color="#303030" />
+      <SolidColorBrush x:Key="StructuralSmallColor" Color="#505050" />
+
+      <SolidColorBrush x:Key="DangerBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+      <SolidColorBrush x:Key="DangerHoverBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+      <SolidColorBrush x:Key="DangerPressedBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+      <SolidColorBrush x:Key="DangerForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+      <SolidColorBrush x:Key="RecycleBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+      <SolidColorBrush x:Key="ProgressTrackBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="ProgressFillBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+      <SolidColorBrush x:Key="ProgressTextBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+
+      <SolidColorBrush x:Key="BarTrackBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="DriveTrackBrush" Color="#404040" />
+      <SolidColorBrush x:Key="DriveFillBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    </ResourceDictionary>
+
+  </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>
