@@ -2,18 +2,11 @@
 
 A Windows desktop app (C# / WinUI 3, .NET 10, Native AOT) with two jobs:
 
-1. **Find what is eating disk space.** Every drive is a bar of the same width. Click a drive and the space
-   it uses opens as a row below, split into its folders. Click a folder and it opens as the next row, and
-   so on. Ribbons connect each row to the segment above it that it expands. Folder sizes come from a
-   breadth-first scan, so the top levels appear within seconds and refine while deeper levels finish.
-2. **Delete huge, deep folders as fast as NTFS allows.** Deletion runs in parallel through NT-level calls
-   with POSIX delete semantics, shows live progress on the row, locks the UI while it runs, can be stopped
-   (with a warning), and is journaled so that a deletion interrupted by a crash or by closing the app
+1. **Find what is eating disk space.** Folder sizes come from a breadth-first scan, so the top levels
+   appear within seconds and refine while deeper levels finish.
+3. **Delete huge, deep folders as fast as NTFS allows.** Deletion runs in parallel through NT-level calls
+   with POSIX delete semantics, and is journaled so that a deletion interrupted by a crash or by closing the app
    resumes on the next launch.
-
-Version 0.1 was written in Rust + Tauri 2. Those sources are not in this repository: they stayed in the Lore
-repository the project used before it moved to git (branches `legacy/rust-tauri` and `release/0.1`). The
-engine algorithms were ported to C# one to one.
 
 ## Installing
 
@@ -46,9 +39,7 @@ left installed. Installing 0.2 over the 0.1 (Tauri) install replaces it in place
 
 **Portable:** unzip `deleteman-<version>-win-x64.zip` (on the `release/<major>.<minor>` branch, in
 `release\`) into any folder and run `deleteman.exe`. Nothing to install: the zip is self-contained, with
-the Windows App Runtime files next to the executable. The single portable `.exe` of 0.1 is gone because a
-WinUI 3 app needs its runtime files either next to the exe or installed. The version is shown in the
-bottom-right corner of the window and in `deleteman.exe`'s file properties.
+the Windows App Runtime files next to the executable.
 
 ## Using it
 
