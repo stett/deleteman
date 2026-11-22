@@ -1,4 +1,4 @@
-# Delete Man
+# Delete Man 🙅‍♂️
 
 A Windows desktop app (C# / WinUI 3, .NET 10, Native AOT) with two jobs:
 
